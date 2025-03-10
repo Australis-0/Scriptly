@@ -59,7 +59,7 @@ function flattenObject (arg0_object) {
     var local_subobj = object[all_object_keys[i]];
 
     if (typeof local_subobj == "object") {
-      flattened_subobj = module.exports.flattenObject(local_subobj);
+      flattened_subobj = flattenObject(local_subobj);
 
       var all_flattened_keys = Object.keys(flattened_subobj);
 
@@ -106,7 +106,7 @@ function getDepth (arg0_object, arg1_depth) {
     if (!object.hasOwnProperty(key)) continue;
 
     if (typeof object[key] == "object") {
-      var level = module.exports.getDepth(object[key]) + 1;
+      var level = getDepth(object[key]) + 1;
       depth = Math.max(depth, level);
     }
   }
@@ -219,7 +219,7 @@ function getSubobject (arg0_object, arg1_key, arg2_restrict_search) {
 
       //Restrict search for certain arguments
       if (explore_object) {
-        var has_subobj = module.exports.getSubobject(local_subobj, new_key, restrict_search);
+        var has_subobj = getSubobject(local_subobj, new_key, restrict_search);
 
         if (has_subobj) {
           //Return statement
@@ -262,7 +262,7 @@ function getSubobjectKeys (arg0_object, arg1_options) {
       if (!options.exclude_keys.includes(all_object_keys[i]))
         all_keys.push(all_object_keys[i]);
 
-      var all_subkeys = module.exports.getSubobjectKeys(local_subobj, options);
+      var all_subkeys = getSubobjectKeys(local_subobj, options);
 
       if (options.include_objects || options.only_objects)
         if (!options.exclude_keys.includes(all_object_keys[i]))
@@ -354,7 +354,7 @@ function removeZeroes (arg0_object) {
       if (local_subobj == 0)
         delete object[all_object_keys[i]];
     if (typeof local_subobj == "object")
-      object[all_object_keys[i]] = module.exports.removeZeroes(local_subobj);
+      object[all_object_keys[i]] = removeZeroes(local_subobj);
   }
 
   //Return statement

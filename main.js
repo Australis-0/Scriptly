@@ -5,8 +5,9 @@ var createWindow = () => {
     width: 1920,
     height: 1080,
     webPreferences: {
-      nodeIntegration: true,
       contextIsolation: false,
+      enableRemoteModule: false,
+      nodeIntegration: true,
       webSecurity: false
     }
   });

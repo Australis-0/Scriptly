@@ -1,5 +1,5 @@
 var context_menu = createContextMenu({
-  anchor: "#context-menu-container",
+  anchor: "#app-container",
   class: "context-menu-test",
   id: "context-menu-test",
   name: "Context Menu",

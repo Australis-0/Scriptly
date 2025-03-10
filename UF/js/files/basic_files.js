@@ -3,7 +3,7 @@
 /*
   getAllFiles() - Fetches an array of all files in a given folder.
   arg0_folder: (String) - The folder path.
-  
+
   Returns: (Array<String, ...>)
 */
 function getAllFiles (arg0_folder) {
@@ -18,7 +18,7 @@ function getAllFiles (arg0_folder) {
 
       for (var i = 0; i < files.length; i++) {
         //Self-reference to fetch files in sub-directories
-        local_dir_array = (fs.statSync(folder + "/" + files[i]).isDirectory()) ? module.exports.getAllFiles(folder + "/" + files[i]) : file_array.push(path.join(folder, "/", files[i]));
+        local_dir_array = (fs.statSync(folder + "/" + files[i]).isDirectory()) ? getAllFiles(folder + "/" + files[i]) : file_array.push(path.join(folder, "/", files[i]));
 
         //Add files from local_dir_array to file_array
         for (var x = 0; x < local_dir_array.length; x++)
@@ -52,6 +52,8 @@ function importFile (arg0_require_obj) {
   arg0_folder: (String) - The directory to load.
   arg1_options: (Object)
     reverse: (Boolean) - Optional. Whether to reverse it or not. True by default.
+
+  Returns: (Array<String>)
 */
 function loadDirectory (arg0_folder, arg1_options) {
   //Convert from parameters
@@ -124,7 +126,7 @@ function loadConfig () {
 */
 function loadFile (arg0_file) {
   //Convert from parameters
-  var file_path = path.join(__dirname, "..", arg0_file);
+  var file_path = path.join(__dirname, arg0_file);
 
   //Evaluate file contents
   try {
